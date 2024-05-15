@@ -4,28 +4,18 @@ from ctransformers import AutoModelForCausalLM
 
 
 class LLMModel:
-    # def __init__(self):
 
-    #     self.llm = AutoModelForCausalLM.from_pretrained(
-    #         "TheBloke/Tinyllama-2-1b-miniguanaco-GGUF",
-    #         model_file="tinyllama-2-1b-miniguanaco.Q4_K_M.gguf",
-    #         model_type="llama",
-    #         gpu_layers=0,
-    #     )
-    #     print(f"Model loaded successfully!")
-
-    # def getLLM(self):
-    #     return self.llm
-
-    def __init__(self, 
-                model_name="TheBloke/Tinyllama-2-1b-miniguanaco-GGUF", 
-                model_path="./tinyllama-2-1b-miniguanaco.Q4_K_M.gguf",
-                n_gpu_layers=0,
-                n_batch=8,
-                temperature=0.1,
-                verbose=True,
-                max_tokens=512,
-                top_p=1):
+    def __init__(
+        self,
+        model_name="TheBloke/Tinyllama-2-1b-miniguanaco-GGUF",
+        model_path="./tinyllama-2-1b-miniguanaco.Q4_K_M.gguf",
+        n_gpu_layers=0,
+        n_batch=8,
+        temperature=0.1,
+        verbose=True,
+        max_tokens=512,
+        top_p=1,
+    ):
 
         self.__model_name = model_name
         self.__model_path = model_path
@@ -37,7 +27,6 @@ class LLMModel:
         self.__top_p = top_p
 
         try:
-
             self.__llm = LlamaCpp(
                 model_path=self.__model_path,
                 temperature=self.__temperature,
@@ -48,10 +37,9 @@ class LLMModel:
                 verbose=self.__verbose,
             )
             print(f"Model {self.__model_name} loaded successfully!")
-            
+
         except Exception as e:
             print("Couldn't load the model. Exception : ", e)
 
-    
     def getLLM(self):
         return self.__llm
